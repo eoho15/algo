@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class Main31 {
     public char solution(int n, String s) {
         char answer = ' ';
-
         HashMap<Character,Integer> map = new HashMap<>();
 
         for(char x : s.toCharArray()){
@@ -31,3 +30,4 @@ public class Main31 {
         System.out.print(T.solution(n, str));
     }
 }
+

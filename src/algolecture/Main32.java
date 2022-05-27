@@ -9,7 +9,6 @@ public class Main32 {
 
         String answer = "YES";
         HashMap<Character, Integer> map = new HashMap<>();
-        // 제네릭 타입 생략가능!
         for(char x : s1.toCharArray()){
             System.out.println(x);
             map.put(x, map.getOrDefault(x,0)+1);

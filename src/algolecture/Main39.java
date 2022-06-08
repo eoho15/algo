@@ -24,9 +24,7 @@ public class Main39 {
                     stack.push(lt-rt);
             }
         }
-
         answer = stack.get(0);
-
 
         return answer;
     }

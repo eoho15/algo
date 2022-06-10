@@ -14,8 +14,7 @@ public class SimpleWebServer {
         // 4. 1번부터 다시 시작한다.
         ServerSocket ss = new ServerSocket(9090);
         System.out.println("Server Start!!");
-
-        while(true) {
+        while (true) {
             Socket socket = ss.accept();
             System.out.println("client:" + socket);
             SocketThread st = new SocketThread(socket);
@@ -30,6 +29,7 @@ class SocketThread extends Thread{
         this.socket = socket;
     }
     // 브라우저의 요청을 처리하는 메소드..
+    @Override
     public void run() {
         System.out.println("socket을 통해 클라이언트와 동작한다.");
         try {
@@ -41,27 +41,41 @@ class SocketThread extends Thread{
             // 브라우저의 요청을 읽어들여서 그 결과를 반환한다. 
             Request request = processRequest(in,br);
             System.out.println(request.getFirstLine());
+            System.out.println(request.getPath());
+
             //응답한다.
+            // path의 내용을 읽어들여서 클라이언트에 전송한다.
+            processResponse(request.getPath(), out, pw);
+
             socket.close();
         } catch(Exception ex){
             ex.printStackTrace();
         }
     } // run
 
+    private void processResponse(String path, OutputStream out, PrintWriter pw) {
+        String baseDir = "C:\\Users\\handa\\Desktop\\algo\\src\\net";
+        String readFile = baseDir + path;
+
+    }
+
     // 몇번째 듣는지 모르게따,,
     private Request processRequest(InputStream in, BufferedReader br) throws Exception {
         //Request 객체 생성.
         Request request = new Request();
-
-        request.setFirstLine(br.readLine());
-
+        request.setFirstLine(br.readLine()); // GET / HTTP / 1.1
+        String line = null;
+        while (!(line = br.readLine()).equals("")) {
+            request.addHeaders(line);
+        }
         return request;
     }
 }
-class Request{
-    String firstLine; // GET
 
+class Request {
+    String firstLine; // GET
     List<String> headers;
+    String path;
 
     public Request(){
         headers = new ArrayList<>();
@@ -72,8 +86,16 @@ class Request{
         return firstLine;
     }
 
+    public String getPath() {
+        return path;
+    }
+
     public void setFirstLine(String firstLine){
         this.firstLine = firstLine;
+        this.path = firstLine.substring(4, firstLine.lastIndexOf(" "));
+        if ("/".equals(path)) {
+            path = "/index.html";
+        }
     }
 
     public void addHeaders(String header){
@@ -84,3 +106,4 @@ class Request{
         return headers.iterator();
     }
 }
+

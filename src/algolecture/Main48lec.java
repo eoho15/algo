@@ -7,7 +7,6 @@ import java.util.Scanner;
 public class Main48lec {
     public ArrayList<Integer> solution(int n, int[] arr){
         ArrayList<Integer> answer = new ArrayList<>();
-
         // 깊은복사를 해야한다!
         // 얕은 복사를 하면 안된다!
         int[] tmp = arr.clone();
@@ -17,7 +16,6 @@ public class Main48lec {
                 answer.add(i+1);
             }
         }
-
         return answer;
     }
 

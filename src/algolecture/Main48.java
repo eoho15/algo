@@ -16,7 +16,6 @@ public class Main48 {
             arr[i] = sc.nextInt();
             arr2[i] = arr[i];
         }
-
         Arrays.sort(arr);
 
         for(int i=0;i<arr.length;i++){

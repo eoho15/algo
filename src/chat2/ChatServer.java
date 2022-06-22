@@ -15,8 +15,8 @@ public class ChatServer {
 
         while(true) {
             Socket socket = serverSocket.accept();
-            ChatThread chatClient = new ChatThread(socket, list);
-            chatClient.start();
+            ChatThread chatThread = new ChatThread(socket, list);
+            chatThread.start();
         }
     }
 }

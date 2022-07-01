@@ -13,8 +13,7 @@ public class Main {
     Node root;
     public void DFS(Node root){
         if(root == null)
-            return;
-        else{
+            return;       else{
             DFS(root.lt);
             System.out.print(root.data + " ");
             DFS(root.rt);

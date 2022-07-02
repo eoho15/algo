@@ -1,89 +1,44 @@
 package practice.one;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-//
-//        Student st1 = new Student("배찌", "1000");
-//        Student st2 = new Student("다오", "2000");
-//        Student st3 = new Student("디지니", "3000");
-//
-//        ArrayList<Student> list = new ArrayList<Student>();
-//        list.add(st1);
-//        list.add(st2);
-//        list.add(st3);
-//
-//        Scanner scan = new Scanner(System.in);
-//
-//        while (true) {
-//            System.out.println("계속 검색을 원하시면 y, 원하지 않으면 n을 입력해 주세요");
-//            String input = scan.next();
-//            if (input.equals("y")) {
-//                System.out.println("검색을 시작합니다.");
-//                String name = scan.next();
-//                boolean flag = false;
-//
-//                for (Student stu : list) {
-//                    if (stu.getName().equals(name))
-//                        System.out.println("학생의 학번은 " + stu.getNo() + "입니다.");
-//                        flag = true;
-//                }
-//
-//                if(!flag) {
-//                    System.out.println("해당하는 학생이 없습니다.");
-//                }
-//            } else if (input.equals("n")) {
-//                System.out.println("검색을 종료합니다.");
-//            }
-//        }
-//
-//
-//    }
-//}
 
-
-        Student st1 = new Student("배찌", "1000");
-        Student st2 = new Student("다오", "2000");
-        Student st3 = new Student("디지니", "3000");
-
-        ArrayList<Student> list = new ArrayList<Student>();
-        list.add(st1);
-        list.add(st2);
-        list.add(st3);
-
-        Scanner scan = new Scanner(System.in);
-
-        while (true) {
-            System.out.println("계속 검색을 원하시면 y, 원하지 않으면 n 을 입력해주세요");
-                    String input = scan.next();
-
-            if (input.equals("y")) {
-                System.out.println("검색을 시작합니다.");
-                String name = scan.next();
-                boolean flag = false;
-
-                for (Student stu : list) {
-                    if (stu.getName().equals(name))
-                        System.out.println("학생의 학번은" + stu.getNo() + "입니다.");
-                    flag = true;
-
+    int answer = 0;
+    int[] dis = {1,-1,5};
+    int[] ch;
+    Queue<Integer> Q = new LinkedList<>();
+    public int BFS(int s, int e){
+        ch = new int[10001];
+        ch[s] = 1;
+        Q.offer(s);
+        int L = 0;
+        while(!Q.isEmpty()){
+            int len = Q.size();
+            for(int i=0;i<len;i++){
+                int x = Q.poll();
+                if(x == e) return L;
+                for(int j=0;j<3;j++){
+                    int nx = x + dis[j];
+                    if(nx>=1 && nx<=10000){
+                        ch[nx] = 1;
+                        Q.offer(nx);
+                    }
                 }
-
-                if (!flag)
-                    System.out.println("해당하는 학생이 없습니다.");
-            } else if (input.equals("n")) {
-                System.out.println("검색을 종료합니다");
-                break;
             }
-
-
+            L++;
         }
-
-
+        return 0;
     }
 
 
+    public static void main(String[] args) {
+        Main T = new Main();
+        Scanner kb = new Scanner(System.in);
+        int s = kb.nextInt();
+        int e = kb.nextInt();
+        System.out.println(T.BFS(s,e));
+    }
 }
-
